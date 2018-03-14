@@ -15,22 +15,24 @@ class App extends Component {
           <h1 className="App-title">Let's try to fetch an API hahaha.</h1>
         </header>
         <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
+          The temperature is 
         </p>
       </div>
     );
   }
-  ComponentDidMount(){
-    console.log(2);
+  componentDidMount(){
     let apiKey = "c033c7d88ddd656c159ed45f9a39923e";
     let city = "London";
     let url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
     fetch(url)
     .then((result) => {
-      return JSON.parse(result);
+      console.log(result.body);
+      return result.json();
     }).then((data) => {
-      console.log(data);
-      console.log(3);
+      //console.log(data.main.temp);
+      this.setState({
+        cityTemp: this.state.cityTemp.concat(data)
+      });
     });
   }
 }
